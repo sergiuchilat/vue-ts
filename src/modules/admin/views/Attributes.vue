@@ -1,10 +1,8 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 @Component ({})
-export default class HomePage extends Vue{
-
-}
+export default class AttributesPage extends Vue{}
 </script>
 <template>
-  <div>TEST</div>
+  <div>Admin attributes page</div>
 </template>

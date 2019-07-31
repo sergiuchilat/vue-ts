@@ -1,10 +1,8 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 @Component ({})
-export default class HomePage extends Vue{
-
-}
+export default class IndexPage extends Vue{}
 </script>
 <template>
-  <div>TEST</div>
+  <div>Admin index page</div>
 </template>

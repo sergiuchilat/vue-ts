@@ -13,8 +13,11 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
+      "vuetify",
       "mocha",
-      "chai"
+      "chai",
+      "webpack",
+      "webpack-env"
     ],
     "paths": {
       "@/*": [

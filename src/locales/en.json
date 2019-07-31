@@ -1,0 +1,14 @@
+{
+  "message": "hello i18n !!",
+  "modules": {
+    "admin": {
+      "name": "Admin"
+    },
+    "engineer": {
+      "name": "Engineer"
+    },
+    "profile": {
+      "name": "Profile"
+    }
+  }
+}
