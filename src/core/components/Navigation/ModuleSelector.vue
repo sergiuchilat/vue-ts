@@ -33,7 +33,7 @@ export default class ModuleSelector extends Vue {
       </v-btn>
     </template>
     <v-list>
-      <v-list-item v-for="(item, index) in items" :key="index"  @click="$router.push(`/${$appLocale}/${item.url}`)">
+      <v-list-item v-for="(item, index) in items" :key="index" @click="$router.push(`/${$appLocale}/${item.url}`)">
         <v-list-item-title>
           {{ $t(`modules.${item.name}.name`) }}
         </v-list-item-title>
