@@ -51,5 +51,46 @@
       "description": "1 Task Task Task Task Task Task Task Task Task Task Task Task Task ",
       "children_resource_url": "level1"
     }
+  ],
+  "countries": [
+    {
+      "id": 1,
+      "name": "Moldova"
+    },
+    {
+      "id": 2,
+      "name": "Ukraina"
+    },
+    {
+      "id": 3,
+      "name": "Romania"
+    }
+  ],
+  "regions": [
+    {
+      "id": 1,
+      "name": "Chisinau",
+      "parent": 1
+    },
+    {
+      "id": 2,
+      "name": "Balti",
+      "parent": 1
+    },
+    {
+      "id": 3,
+      "name": "Iasi",
+      "parent": 3
+    },
+    {
+      "id": 4,
+      "name": "Suceava",
+      "parent": 3
+    },
+    {
+      "id": 4,
+      "name": "Kiev",
+      "parent": 2
+    }
   ]
 }
