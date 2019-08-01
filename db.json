@@ -1,20 +1,55 @@
 {
-  "admin-attributes-entities": [
+  "level1": [
     {
-      "value": 1,
-      "text": "Document"
+      "id": 1,
+      "name": "Document",
+      "description": "Document Document Document Document Document Document Document Document Document Document Document Document Document Document Document ",
+      "children_resource_url": "level2"
     },
     {
-      "value": 2,
-      "text": "Task"
+      "id": 2,
+      "name": "Task"
     },
     {
-      "value": 3,
-      "text": "Department"
+      "id": 3,
+      "name": "Department",
+      "description": "Department Department Department Department Department Department Department Department Department Department ",
+      "children_resource_url": "level2"
     },
     {
-      "value": 4,
-      "text": "DNS"
+      "id": 4,
+      "name": "DNS",
+      "description": "DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS DNS ",
+      "children_resource_url": "level2"
+    }
+  ],
+  "level2": [
+    {
+      "id": 1,
+      "parent": 1,
+      "name": "Document 1",
+      "description": "1 Document Document Document Document Document Document Document Document Document Document Document Document Document ",
+      "children_resource_url": "level1"
+    },
+    {
+      "id": 2,
+      "parent": 1,
+      "name": "Document 2",
+      "description": "2 Document Document Document Document Document Document Document Document Document Document ",
+      "children_resource_url": "level1"
+    },
+    {
+      "id": 3,
+      "parent": 1,
+      "name": "Document 3",
+      "description": "3 Document Document Document Document Document Document Document Document Document Document Document Document "
+    },
+    {
+      "id": 3,
+      "parent": 2,
+      "name": "Task 1",
+      "description": "1 Task Task Task Task Task Task Task Task Task Task Task Task Task ",
+      "children_resource_url": "level1"
     }
   ]
 }

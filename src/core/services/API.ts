@@ -1,5 +1,9 @@
 import axios from "axios";
 
+interface responseObject {
+  data: Object
+}
+
 export default class API {
   private baseURL: string = "";
 
@@ -7,7 +11,7 @@ export default class API {
     this.baseURL = baseURL || process.env.VUE_APP_API_SERVER_URL || "";
   }
 
-  public get(url: string, params: Object): Promise<Object> {
+  public get(url: string, params: Object = {}): Promise<Object> {
     let _params: any = {
       localLoader: false
     };
@@ -16,16 +20,20 @@ export default class API {
     }
     return new Promise((resolve, reject) => {
       axios
-        .get(url, {
+        .get(`${this.baseURL}${url}`, {
           params: _params.queryParams
         })
-        .then((response: Object) => {
-          resolve(response);
+        .then((response: responseObject) => {
+          resolve(response.data);
         })
-        .catch((error: Object) => {
+        .catch((error: Error) => {
           reject(error);
         });
     });
+  }
+
+  public getOne(url: string, id: number): Promise<Object>{
+    return this.get(`${url}/${id}`);
   }
 
   public store(url: string, entity: any): Promise<Object> {
@@ -35,7 +43,7 @@ export default class API {
         .then((response: Object) => {
           resolve(response);
         })
-        .catch((error: Object) => {
+        .catch((error: Error) => {
           reject(error);
         });
     });
