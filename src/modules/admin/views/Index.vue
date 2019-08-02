@@ -1,33 +1,18 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Ref } from "vue-property-decorator";
-import Select from "@/core/components/Form/components/Select/index.vue";
-
-interface SelectInterface {
-  model: number;
-  name: string;
-  resourceUrl: string;
-  children: Array<string>;
-  parent: string;
-  lazy: boolean;
-}
-
-interface parentsValue {
-  [value: string]: number;
-}
+import Select, {
+  parentsValue,
+  SelectInterface
+} from "@/core/components/Form/components/Select/index.vue";
 
 @Component({
   components: { Select }
 })
 export default class IndexPage extends Vue {
   selects: Object = {};
-  parentsValue: parentsValue = {};
+  dataObject: parentsValue = {};
 
   mounted() {
-    this.parentsValue = {
-      countries: 0,
-      regions: 0
-    };
-
     this.selects = {
       country: {
         model: 0,
@@ -43,7 +28,7 @@ export default class IndexPage extends Vue {
         resourceUrl: "regions",
         children: [],
         parent: "country",
-        lazy: false
+        lazy: true
       },
       city: {
         model: 0,
@@ -51,15 +36,15 @@ export default class IndexPage extends Vue {
         resourceUrl: "cities",
         children: [],
         parent: "region",
-        lazy: false
+        lazy: true
       }
     };
   }
 
   public changeValue(parentName: string, parentID: number): void {
     const filter: object = { parentName, parentID };
-    if (parentName !== "" && this.parentsValue.hasOwnProperty(parentName)) {
-      this.parentsValue[parentName] = parentID;
+    if (parentName !== "") {
+      this.dataObject[parentName] = parentID;
     }
   }
 }
@@ -74,7 +59,7 @@ export default class IndexPage extends Vue {
         :resource-url="select.resourceUrl"
         :children="select.children"
         :lazy="select.lazy"
-        :parent-value.sync="parentsValue[select.parent]"
+        :parent-value.sync="dataObject[select.parent]"
         @change="changeValue(select.name, select.model)"
       ></Select>
     </div>
