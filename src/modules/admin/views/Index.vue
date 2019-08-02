@@ -1,16 +1,17 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Ref } from "vue-property-decorator";
-import Select, {
-  parentsValue,
+import Select from "@/core/components/Form/components/Select/index.vue";
+import {
+  ParentsValueInterface,
   SelectInterface
-} from "@/core/components/Form/components/Select/index.vue";
+} from "@/core/components/Form/components/Select/core/Interfaces";
 
 @Component({
   components: { Select }
 })
 export default class IndexPage extends Vue {
-  selects: Object = {};
-  dataObject: parentsValue = {};
+  selects!: Object;
+  dataObject: ParentsValueInterface = {};
 
   mounted() {
     this.selects = {

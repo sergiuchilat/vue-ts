@@ -10,19 +10,6 @@ import {
 import { DataRepository } from "./core/Repository";
 import Entity from "./core/Model";
 
-export interface parentsValue {
-  [value: string]: number;
-}
-
-export interface SelectInterface {
-  model: number;
-  name: string;
-  resourceUrl: string;
-  children: Array<string>;
-  parent: string;
-  lazy: boolean;
-}
-
 @Component({
   name: "Select"
 })
