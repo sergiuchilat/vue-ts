@@ -8,7 +8,7 @@ import {
   Watch
 } from "vue-property-decorator";
 import { DataRepository } from "./core/Repository";
-import Entity from "./core/Model";
+import { SelectInterface as Entity } from "./core/Interfaces";
 
 @Component({
   name: "Select"
@@ -42,7 +42,7 @@ export default class Select extends Vue {
   }
 
   static resetEntity(): Entity {
-    return { id: 0, name: "", description: "" };
+    return <Entity>{};
   }
 
   async getEntities(filter: Object) {

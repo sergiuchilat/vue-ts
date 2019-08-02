@@ -3,8 +3,8 @@ export interface ParentsValueInterface {
 }
 
 export interface SelectInterface {
-  model: number;
-  name: string;
+  value: number;
+  text: string;
   resourceUrl: string;
   children: Array<string>;
   parent: string;
