@@ -10,7 +10,7 @@ import {
   components: { Select }
 })
 export default class IndexPage extends Vue {
-  selects!: Object;
+  selects: Object = {};
   dataObject: ParentsValueInterface = {};
 
   mounted() {
