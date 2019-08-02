@@ -10,3 +10,7 @@ export interface SelectInterface {
   parent: string;
   lazy: boolean;
 }
+
+export interface SelectsInterface {
+  [value: string]: SelectInterface;
+}

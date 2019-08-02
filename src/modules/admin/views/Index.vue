@@ -3,14 +3,14 @@ import { Vue, Component, Prop, Watch, Ref } from "vue-property-decorator";
 import Select from "@/core/components/Form/components/Select/index.vue";
 import {
   ParentsValueInterface,
-  SelectInterface
+  SelectsInterface
 } from "@/core/components/Form/components/Select/core/Interfaces";
 
 @Component({
   components: { Select }
 })
 export default class IndexPage extends Vue {
-  selects: Object = {};
+  selects: SelectsInterface = {};
   dataObject: ParentsValueInterface = {};
 
   mounted() {
