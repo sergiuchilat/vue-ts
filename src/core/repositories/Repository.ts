@@ -23,9 +23,9 @@ export default class Repository implements RepositoryInterface {
   }
 
   public get(): Promise<any> {
-    if (this.filter.parentID) {
+    /* if (this.filter.parentID) {
       return this.http.getOne(this.resource, this.filter.parentID);
-    }
+    }*/
     return this.http.get(this.resource);
   }
 

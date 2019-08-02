@@ -92,5 +92,22 @@
       "name": "Kiev",
       "parent": 2
     }
+  ],
+  "cities": [
+    {
+      "id": 1,
+      "name": "Chisinau",
+      "parent": 1
+    },
+    {
+      "id": 2,
+      "name": "Balti",
+      "parent": 2
+    },
+    {
+      "id": 3,
+      "name": "Iasi",
+      "parent": 3
+    }
   ]
 }

@@ -9,10 +9,10 @@ import Select from "../components/Select.vue";
 @Component({
   components: { Select }
 })
-export default class AttributesPage extends Vue {
+export default class AttributesPage0 extends Vue {
   entitiesRepository: GlobalRepository = new GlobalRepository();
   entities: Array<Entity> = [];
-  entity: Entity = AttributesPage.resetEntity();
+  entity: Entity = AttributesPage0.resetEntity();
   resourceURL: string = "level1";
   testWatch: string = "";
 

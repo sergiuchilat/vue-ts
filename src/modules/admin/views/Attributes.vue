@@ -1,6 +1,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import Select from "@/core/components/Form/components/Select/";
+import Select from "@/core/components/Form/components/Select/index.vue";
+
 @Component({
   components: { Select }
 })

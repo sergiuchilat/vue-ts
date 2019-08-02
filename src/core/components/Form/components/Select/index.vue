@@ -10,14 +10,13 @@ export default class Select extends Vue {
 
   @Prop(String) resourceUrl!: string;
   @Prop(Boolean) lazy!: boolean;
+  @Prop(Number) parentValue!: number;
 
   dataRepository: DataRepository = new DataRepository();
   entities: Array<Entity> = [];
   entity: Entity = Select.resetEntity();
 
-  constructor() {
-    super();
-    console.log("mounted select");
+  mounted() {
     this.dataRepository.setResource(this.resourceUrl);
     if (!this.lazy) {
       this.getEntities({});
@@ -42,6 +41,7 @@ export default class Select extends Vue {
 </script>
 <template>
   <div>
+    p: {{ parentValue }}
     <v-select
       v-model="entity.id"
       :items="entities"
