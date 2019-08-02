@@ -11,12 +11,16 @@ interface SelectInterface {
   lazy: boolean;
 }
 
+interface parentsValue {
+  [value: string]: number;
+}
+
 @Component({
   components: { Select }
 })
 export default class IndexPage extends Vue {
   selects: Object = {};
-  parentsValue: Object = {};
+  parentsValue: parentsValue = {};
 
   mounted() {
     this.parentsValue = {
@@ -52,10 +56,9 @@ export default class IndexPage extends Vue {
     };
   }
 
-  public changeValue(parentName: any, parentID: number): void {
-    const filter: Object = { parentName, parentID };
-    console.log(this.$refs.regions);
-    if (parentName !== "") {
+  public changeValue(parentName: string, parentID: number): void {
+    const filter: object = { parentName, parentID };
+    if (parentName !== "" && this.parentsValue.hasOwnProperty(parentName)) {
       this.parentsValue[parentName] = parentID;
     }
   }
