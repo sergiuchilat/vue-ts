@@ -18,8 +18,8 @@ export default class ModuleSelector extends Vue {
   ];
 
   mounted() {
-    console.log(this.$t("modules.admin.name"));
-    console.log(this.$i18n);
+    // console.log(this.$t("modules.admin.name"));
+    // console.log(this.$i18n);
   }
 }
 </script>

@@ -1,14 +1,18 @@
-export interface ParentsValueInterface {
-  [value: string]: number;
+import Repository from "@/core/repositories/Repository";
+
+interface ItemFormat {
+  value: number;
+  text: string;
 }
 
 export interface SelectInterface {
-  value: number;
-  text: string;
-  resourceUrl: string;
+  model: Array<number>;
+  itemValue: string;
+  itemText: string;
+  repository: Repository;
   children: Array<string>;
-  parent: string;
   lazy: boolean;
+  data?: Array<ItemFormat>;
 }
 
 export interface SelectsInterface {

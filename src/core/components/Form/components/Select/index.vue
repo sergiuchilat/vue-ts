@@ -7,62 +7,40 @@ import {
   Emit,
   Watch
 } from "vue-property-decorator";
-import { DataRepository } from "./core/Repository";
-import { SelectInterface as Entity } from "./core/Interfaces";
+
+import { SelectInterface } from "./core/Interfaces";
 
 @Component({
   name: "Select"
 })
 export default class Select extends Vue {
-  @Model("change") model!: number;
+  @Model("change") model!: Array<number>;
 
-  @Prop(String) resourceUrl!: string;
-  @Prop(Boolean) lazy!: boolean;
-  @Prop(Number) parentValue!: number;
+  @Prop({ default: "text" }) itemText!: string;
+  @Prop({ default: "value" }) itemValue!: string;
+  @Prop({ type: Array, required: true }) items!: Array<SelectInterface>;
 
-  dataRepository: DataRepository = new DataRepository();
-  entities: Array<Entity> = [];
-  entity: Entity = Select.resetEntity();
-
-  mounted() {
-    this.dataRepository.setResource(this.resourceUrl);
-    if (!this.lazy) {
-      this.getEntities({});
-    }
-  }
-
-  @Watch("parentValue")
-  update() {
-    this.getEntities({ parentID: this.parentValue });
-  }
+  selected: Array<number> = [];
 
   @Emit("change")
-  change(id: number): number {
-    return id;
-  }
-
-  static resetEntity(): Entity {
-    return <Entity>{};
-  }
-
-  async getEntities(filter: Object) {
-    console.log(filter);
-    this.dataRepository.setFilter(filter);
-    this.entities = await this.dataRepository.get();
+  change(selected: Array<number> | number): Array<number> {
+    if (typeof selected === "number") {
+      return [selected];
+    }
+    return selected;
   }
 }
 </script>
 <template>
   <div>
-    p: {{ parentValue }}
     <v-select
-      v-model="entity.id"
-      :items="entities"
+      v-model="selected"
+      :items="items"
+      :item-text="itemText"
+      :item-value="itemValue"
       label="Outline style"
-      item-text="name"
-      item-value="id"
       outlined
-      @change="change(+entity.id)"
+      @change="change(selected)"
     ></v-select>
   </div>
 </template>

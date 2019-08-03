@@ -1,52 +1,58 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Ref } from "vue-property-decorator";
 import Select from "@/core/components/Form/components/Select/index.vue";
+import { API as SelectAPI } from "@/core/components/Form/components/Select/core/API";
 import {
-  ParentsValueInterface,
+  SelectInterface,
   SelectsInterface
 } from "@/core/components/Form/components/Select/core/Interfaces";
+import {
+  CountriesRepository,
+  RegionsRepository,
+  CitiesRepository
+} from "../repositories/AdminRepositories";
 
 @Component({
   components: { Select }
 })
 export default class IndexPage extends Vue {
   selects: SelectsInterface = {};
-  dataObject: ParentsValueInterface = {};
 
   mounted() {
     this.selects = {
       country: {
-        model: 0,
-        name: "country",
-        resourceUrl: "countries",
+        model: [],
+        itemValue: "id",
+        itemText: "name",
+        repository: new CountriesRepository(),
         children: ["region"],
-        parent: "",
-        lazy: false
+        lazy: false,
+        data: []
       },
       region: {
-        model: 0,
-        name: "region",
-        resourceUrl: "regions",
-        children: [],
-        parent: "country",
-        lazy: true
+        model: [],
+        itemValue: "id",
+        itemText: "name",
+        repository: new RegionsRepository(),
+        children: ["city"],
+        lazy: true,
+        data: []
       },
       city: {
-        model: 0,
-        name: "city",
-        resourceUrl: "cities",
+        model: [],
+        itemValue: "id",
+        itemText: "name",
+        repository: new CitiesRepository(),
         children: [],
-        parent: "region",
-        lazy: true
+        lazy: true,
+        data: []
       }
     };
+    SelectAPI.loadDataSource(this.selects.country, {});
   }
 
-  public changeValue(parentName: string, parentID: number): void {
-    const filter: object = { parentName, parentID };
-    if (parentName !== "") {
-      this.dataObject[parentName] = parentID;
-    }
+  public changeValue(selectObject: SelectInterface): void {
+    SelectAPI.handleChange(selectObject, this.selects);
   }
 }
 </script>
@@ -57,14 +63,11 @@ export default class IndexPage extends Vue {
     <div :key="select.name" v-for="select in selects">
       <Select
         v-model="select.model"
-        :resource-url="select.resourceUrl"
-        :children="select.children"
-        :lazy="select.lazy"
-        :parent-value.sync="dataObject[select.parent]"
-        @change="changeValue(select.name, select.model)"
+        :items.sync="select.data"
+        :item-value="select.itemValue"
+        :item-text="select.itemText"
+        @change="changeValue(select)"
       ></Select>
     </div>
-
-    {{ selects }}
   </div>
 </template>

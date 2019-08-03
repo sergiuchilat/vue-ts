@@ -1,15 +1,12 @@
 import Repository from "@/core/repositories/Repository";
 
-export class GlobalRepository extends Repository {
-  constructor(baseURL: string = "") {
-    super(baseURL);
-    this.resource = "";
-  }
+export class CountriesRepository extends Repository {
+  resource = "countries";
+}
+export class RegionsRepository extends Repository {
+  resource = "regions";
 }
 
-export class EntityRepository extends Repository {
-  constructor(baseURL: string = "") {
-    super(baseURL);
-    this.resource = "admin-attributes-entities";
-  }
+export class CitiesRepository extends Repository {
+  resource = "cities";
 }
