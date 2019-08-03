@@ -52,6 +52,7 @@ export default class IndexPage extends Vue {
 
   public changeValue(selectObject: SelectInterface): void {
     SelectAPI.handleChange(selectObject, this.selects);
+    // + some code HERE
   }
 }
 </script>
