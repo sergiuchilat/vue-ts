@@ -1,22 +1,18 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Ref } from "vue-property-decorator";
 import Select from "@/core/components/Form/components/Select/index.vue";
-import { API as SelectAPI } from "@/core/components/Form/components/Select/core/API";
+import { SelectAPI } from "@/core/components/Form/components/Select/core/API";
 import {
   SelectInterface,
   SelectsInterface
 } from "@/core/components/Form/components/Select/core/Interfaces";
-import {
-  CountriesRepository,
-  RegionsRepository,
-  CitiesRepository
-} from "../repositories/AdminRepositories";
 
 @Component({
   components: { Select }
 })
 export default class IndexPage extends Vue {
   selects: SelectsInterface = {};
+  selectAPI: SelectAPI = new SelectAPI();
 
   mounted() {
     this.selects = {
@@ -24,7 +20,7 @@ export default class IndexPage extends Vue {
         model: [],
         itemValue: "id",
         itemText: "name",
-        repository: new CountriesRepository(),
+        resourceUrl: "countries",
         children: ["region"],
         data: [{ value: 777, text: "777" }, { value: 888, text: "888" }],
         appendData: true
@@ -33,7 +29,7 @@ export default class IndexPage extends Vue {
         model: [],
         itemValue: "id",
         itemText: "name",
-        repository: new RegionsRepository(),
+        resourceUrl: "regions",
         children: ["city"],
         lazy: true,
         data: []
@@ -42,16 +38,16 @@ export default class IndexPage extends Vue {
         model: [],
         itemValue: "id",
         itemText: "name",
-        repository: new CitiesRepository(),
+        resourceUrl: "cities",
         lazy: true,
         data: []
       }
     };
-    SelectAPI.loadDataSource(this.selects.country, {});
+    this.selectAPI.loadDataSource(this.selects.country, {});
   }
 
   public changeValue(selectObject: SelectInterface): void {
-    SelectAPI.handleChange(selectObject, this.selects);
+    this.selectAPI.handleChange(selectObject, this.selects);
     // + some code HERE
   }
 }

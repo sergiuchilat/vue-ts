@@ -1,5 +1,6 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import FilterComponent from "@/core/repositories/FilterComponentInterface";
+import appLocale from "@/core/services/appLocale";
 
 interface responseObject {
   data: Object;
@@ -8,32 +9,46 @@ interface responseObject {
 export default class API {
   private baseURL: string = "";
   private requestFilters: Array<string> = [];
+  private http: any = null;
 
   constructor(baseURL: string) {
+    const httpInstance: any = axios.create({});
+    httpInstance.interceptors.request.use(
+      (config: AxiosRequestConfig) => {
+        const token: string = localStorage.getItem("token") || "";
+        config.headers.common["X-localization"] = appLocale.get();
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error: any) => {
+        return Promise.reject(error);
+      }
+    );
+
+    axios.interceptors.response.use(
+      response => {
+        return response;
+      },
+      error => {
+        return Promise.reject(error.response);
+      }
+    );
+    this.http = httpInstance;
+
     this.baseURL = baseURL || process.env.VUE_APP_API_SERVER_URL || "";
     this.resetFilters();
   }
 
-  public get(url: string, params: Object = {}): Promise<Object> {
-    console.log(url);
-    let _params: any = {
-      localLoader: false
-    };
-    if (params) {
-      _params = Object.assign({}, params);
-    }
+  public get(url: string): Promise<Object> {
+    url = (url.includes("http") ? "" : this.baseURL) + url;
     if (this.requestFilters.length) {
-      if (url.includes("?")) {
-        url += "&" + this.attachFilter();
-      } else {
-        url += "?" + this.attachFilter();
-      }
+      url += (url.includes("?") ? "&" : "?") + this.attachFilter();
     }
     return new Promise((resolve, reject) => {
-      axios
-        .get(`${this.baseURL}${url}`, {
-          params: _params.queryParams
-        })
+      this.http
+        .get(url)
         .then((response: responseObject) => {
           resolve(response.data);
         })
@@ -95,6 +110,7 @@ export default class API {
   }
 
   public setRequestFilters(filters: Array<FilterComponent>) {
+    this.requestFilters.splice(0, this.requestFilters.length);
     for (const filterComponent of filters) {
       this.requestFilters.push(
         `filter=[${filterComponent.field}]=${filterComponent.value}`

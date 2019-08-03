@@ -3,53 +3,62 @@ import {
   SelectsInterface
 } from "@/core/components/Form/components/Select/core/Interfaces";
 import FilterComponent from "@/core/repositories/FilterComponentInterface";
-
+import API from "@/core/services/API";
 interface FilterInterface {
   parent?: Array<number>;
 }
 
-export class API {
-  static filters: Array<FilterComponent> = [];
-  static resetFilters() {
-    this.filters = [];
+export class SelectAPI {
+  private filters: Array<FilterComponent> = [];
+  private http: any = null;
+  constructor(baseURL: string = "") {
+    this.http = new API(baseURL);
   }
-  static addFilter(field: string, value: string): void {
-    API.filters.push({
+
+  private resetFilters() {
+    this.filters.splice(0, this.filters.length);
+  }
+
+  private addFilter(field: string, value: string): void {
+    this.filters.push({
       field,
       value
     });
   }
 
-  static async loadDataSource(
+  public async loadDataSource(
     selectObject: SelectInterface,
     filters: FilterInterface
   ): Promise<any> {
-    API.resetFilters();
-    if (filters.parent) {
-      API.addParentFilter(filters.parent);
-    }
-    if (selectObject.repository) {
+    this.prepareFilters(filters);
+    if (selectObject.resourceUrl) {
       if (!selectObject.appendData) {
         selectObject.data = [];
       }
+      if (this.filters.length) {
+        this.http.setRequestFilters(this.filters);
+      }
       selectObject.data = [
         ...selectObject.data,
-        ...(await selectObject.repository.get(API.filters))
+        ...(await this.http.get(selectObject.resourceUrl))
       ];
     }
   }
 
-  static addParentFilter(parentValue: Array<number>) {
-    API.addFilter("parent_id", parentValue.join("."));
+  private prepareFilters(filters: FilterInterface) {
+    this.resetFilters();
+    if (filters.parent) {
+      this.addFilter("parent_id", filters.parent.join("."));
+    }
   }
 
-  static handleChange(
+  public handleChange(
     selectObject: SelectInterface,
     selects: SelectsInterface
   ) {
     if (selectObject.children) {
       for (const child of selectObject.children) {
-        API.loadDataSource(selects[child], {
+        this.loadDataSource(selects[child], {
           parent: selectObject.model
         });
       }

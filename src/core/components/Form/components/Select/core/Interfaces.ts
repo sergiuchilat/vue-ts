@@ -1,5 +1,3 @@
-import Repository from "@/core/repositories/Repository";
-
 interface ItemFormat {
   value: number;
   text: string;
@@ -8,7 +6,7 @@ interface ItemFormat {
 export interface SelectInterface {
   model: Array<number>;
   data: Array<ItemFormat>;
-  repository?: Repository;
+  resourceUrl?: string;
   itemValue: string;
   itemText: string;
   children?: Array<string>;
