@@ -1,12 +1,5 @@
 <script lang="ts">
-import {
-  Vue,
-  Component,
-  Prop,
-  Model,
-  Emit,
-  Watch
-} from "vue-property-decorator";
+import { Vue, Component, Prop, Model, Emit } from "vue-property-decorator";
 
 import { SelectInterface } from "./core/Interfaces";
 import ArrayUtils from "@/core/utils/Array";
