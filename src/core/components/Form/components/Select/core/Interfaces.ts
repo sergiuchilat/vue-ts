@@ -12,6 +12,7 @@ export interface SelectInterface {
   children?: Array<string>;
   lazy?: boolean;
   appendData?: boolean;
+  multiple?: boolean;
 }
 
 export interface SelectsInterface {

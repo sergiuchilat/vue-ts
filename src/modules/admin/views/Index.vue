@@ -32,7 +32,8 @@ export default class IndexPage extends Vue {
         resourceUrl: "regions",
         children: ["city"],
         lazy: true,
-        data: []
+        data: [],
+        multiple: true
       },
       city: {
         model: [],
@@ -62,6 +63,7 @@ export default class IndexPage extends Vue {
         :items.sync="select.data"
         :item-value="select.itemValue"
         :item-text="select.itemText"
+        :multiple="select.multiple"
         @change="changeValue(select)"
       ></Select>
     </div>
