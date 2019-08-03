@@ -26,8 +26,8 @@ export default class IndexPage extends Vue {
         itemText: "name",
         repository: new CountriesRepository(),
         children: ["region"],
-        lazy: false,
-        data: []
+        data: [{ value: 777, text: "777" }, { value: 888, text: "888" }],
+        appendData: true
       },
       region: {
         model: [],
@@ -43,7 +43,6 @@ export default class IndexPage extends Vue {
         itemValue: "id",
         itemText: "name",
         repository: new CitiesRepository(),
-        children: [],
         lazy: true,
         data: []
       }

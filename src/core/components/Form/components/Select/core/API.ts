@@ -28,11 +28,18 @@ export class API {
     if (filters.parent) {
       API.addParentFilter(filters.parent);
     }
-    selectObject.data = await selectObject.repository.get(API.filters);
+    if (selectObject.repository) {
+      if (!selectObject.appendData) {
+        selectObject.data = [];
+      }
+      selectObject.data = [
+        ...selectObject.data,
+        ...(await selectObject.repository.get(API.filters))
+      ];
+    }
   }
 
   static addParentFilter(parentValue: Array<number>) {
-    console.log(parentValue);
     API.addFilter("parent_id", parentValue.join("."));
   }
 
@@ -40,10 +47,12 @@ export class API {
     selectObject: SelectInterface,
     selects: SelectsInterface
   ) {
-    for (const child of selectObject.children) {
-      API.loadDataSource(selects[child], {
-        parent: selectObject.model
-      });
+    if (selectObject.children) {
+      for (const child of selectObject.children) {
+        API.loadDataSource(selects[child], {
+          parent: selectObject.model
+        });
+      }
     }
   }
 }

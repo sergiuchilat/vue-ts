@@ -7,12 +7,13 @@ interface ItemFormat {
 
 export interface SelectInterface {
   model: Array<number>;
+  data: Array<ItemFormat>;
+  repository?: Repository;
   itemValue: string;
   itemText: string;
-  repository: Repository;
-  children: Array<string>;
-  lazy: boolean;
-  data?: Array<ItemFormat>;
+  children?: Array<string>;
+  lazy?: boolean;
+  appendData?: boolean;
 }
 
 export interface SelectsInterface {
